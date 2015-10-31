@@ -1,0 +1,59 @@
+body {
+  height: 100%;
+  width: 100%;
+  background: #1BA39C;
+}
+
+header {
+  text-align: center;
+}
+
+header h1 {
+  font-size: 4em;
+}
+
+#controls {
+  text-align: center;
+  width: 50%;
+}
+
+#controls .control-items {
+  display: inline-block;
+  margin-top: 50px;
+}
+
+#controls .control-items input {
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  font-size: 28px;
+  border: none;
+  background: none;
+}
+
+#controls .control-items button {
+  height: 48px;
+  width: 48px;
+  font-size: 24px;
+  border: none;
+  background: none;
+  vertical-align: top;
+}
+
+#clock {
+  margin-top: 50px;
+  border: 3px solid black;
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  text-align: center;
+}
+
+#clock:hover {
+  cursor: pointer;
+}
+
+#clock #clock-text {
+  padding-top: 25%;
+  font-size: 4em;
+}
