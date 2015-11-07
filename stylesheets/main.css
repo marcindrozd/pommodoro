@@ -1,7 +1,9 @@
 body {
   height: 100%;
   width: 100%;
-  background: #1BA39C;
+  background: #173e43;
+  color: #fae596;
+  font-weight: 100;
 }
 
 header {
@@ -9,6 +11,7 @@ header {
 }
 
 header h1 {
+  font-family: 'Lobster';
   font-size: 4em;
 }
 
@@ -43,7 +46,7 @@ header h1 {
 #clock {
   margin: 0 auto;
   margin-top: 50px;
-  border: 3px solid black;
+  border: 3px solid #fae596;
   border-radius: 50%;
   width: 300px;
   height: 300px;
@@ -59,7 +62,7 @@ header h1 {
   right: 0;
   height: 0%;
   width: 100%;
-  background: red;
+  background: #3fb0ac;
 }
 
 #clock:hover {
@@ -67,9 +70,11 @@ header h1 {
 }
 
 #clock #clock-text {
-  position: absolute;
-  top: 0;
-  left: 50;
+  position: relative;
   padding-top: 25%;
   font-size: 4em;
+}
+
+#clock #clock-text #clock-title {
+  text-transform: capitalize;
 }

@@ -104,21 +104,25 @@ function pauseTimer() {
 
 function switchTimer() {
   timeLeft = null;
+  var timerType;
 
   if (currentTimer == 'work') {
-    clearInterval(runningTimer);
-    currentTimer = 'break';
-    $('#timer').text($('#break-time').val());
-    originalTime = startingTime = $('#timer').text() * 60;
-    startTimer(startingTime, $('#timer'));
+    timerType = $('#break-time').val();
+    selectTimer('break', timerType);
   }
   else if (currentTimer == 'break') {
-    clearInterval(runningTimer);
-    currentTimer = 'work';
-    $('#timer').text($('#session-time').val());;
-    originalTime = startingTime = $('#timer').text() * 60;
-    startTimer(startingTime, $('#timer'));
+    timerType = $('#session-time').val();
+    selectTimer('break', timerType);
   }
+}
+
+function selectTimer(current, timerType) {
+  clearInterval(runningTimer);
+  currentTimer = current;
+  $('#clock-title').text(currentTimer);
+  $('#timer').text(timerType);
+  originalTime = startingTime = $('#timer').text() * 60;
+  startTimer(startingTime, $('#timer'));
 }
 
 function playChime() {
