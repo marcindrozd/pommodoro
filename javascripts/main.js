@@ -1,6 +1,8 @@
 var clockRunning = false;
 var startingTime;
 var timeLeft;
+var runningTimer;
+var currentTimer = 'work';
 
 $(document).ready(function() {
   $('#clock').click(function() {
@@ -57,7 +59,7 @@ function startTimer(duration, display) {
     var timer = duration;
     var minutes, seconds;
 
-    currentTimer = setInterval(function () {
+    runningTimer = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
@@ -68,6 +70,8 @@ function startTimer(duration, display) {
 
         if (--timer < 0) {
             timer = duration;
+            // playSound();
+            switchTimer();
         }
 
         timeLeft = timer;
@@ -78,5 +82,24 @@ function startTimer(duration, display) {
 
 function pauseTimer() {
   clockRunning = false;
-  clearInterval(currentTimer);
+  clearInterval(runningTimer);
+}
+
+function switchTimer() {
+  timeLeft = null;
+
+  if (currentTimer == 'work') {
+    clearInterval(runningTimer);
+    currentTimer = 'break';
+    $('#timer').text($('#break-time').val());
+    startingTime = $('#timer').text() * 60;
+    startTimer(startingTime, $('#timer'));
+  }
+  else if (currentTimer == 'break') {
+    clearInterval(runningTimer);
+    currentTimer = 'work';
+    $('#timer').text($('#session-time').val());;
+    startingTime = $('#timer').text() * 60;
+    startTimer(startingTime, $('#timer'));
+  }
 }
