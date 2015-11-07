@@ -1,10 +1,13 @@
 var clockRunning = false;
 var startingTime;
+var originalTime;
 var timeLeft;
 var runningTimer;
 var currentTimer = 'work';
 
 $(document).ready(function() {
+  originalTime = $('#timer').text() * 60;
+
   $('#clock').click(function() {
     if (clockRunning) {
       pauseTimer()
@@ -19,22 +22,36 @@ $(document).ready(function() {
     }    
   });
   
-  $('#add-session').click(function(event) { 
-    plusOne(event.target);
-    updateSessionClock(event.target);
+  $('#add-session').click(function(event) {
+    if (!clockRunning) { 
+      timeLeft = null;
+      plusOne(event.target);
+      updateSessionClock(event.target);
+      originalTime = $('#timer').text() * 60;
+    }
   });
   
   $('#sub-session').click(function(event) { 
-    minusOne(event.target);
-    updateSessionClock(event.target);
+    if (!clockRunning) { 
+      timeLeft = null;
+      minusOne(event.target);
+      updateSessionClock(event.target);
+      originalTime = $('#timer').text() * 60;
+    }
   });
   
   $('#add-break').click(function(event) { 
-    plusOne(event.target);
+    if (!clockRunning) { 
+      timeLeft = null;
+      plusOne(event.target);
+    }
   });
   
   $('#sub-break').click(function(event) { 
-    minusOne(event.target);
+    if (!clockRunning) { 
+      timeLeft = null;
+      minusOne(event.target);
+    }
   });
 });
 
@@ -70,12 +87,12 @@ function startTimer(duration, display) {
 
         if (--timer < 0) {
             timer = duration;
-            // playSound();
+            playChime();
             switchTimer();
         }
 
         timeLeft = timer;
-
+        $('#progress-bar').css('height', (Math.floor(((originalTime - timeLeft) / originalTime) * 100)) + '%');
     }, 1000);
     clockRunning = true;
 }
@@ -92,14 +109,18 @@ function switchTimer() {
     clearInterval(runningTimer);
     currentTimer = 'break';
     $('#timer').text($('#break-time').val());
-    startingTime = $('#timer').text() * 60;
+    originalTime = startingTime = $('#timer').text() * 60;
     startTimer(startingTime, $('#timer'));
   }
   else if (currentTimer == 'break') {
     clearInterval(runningTimer);
     currentTimer = 'work';
     $('#timer').text($('#session-time').val());;
-    startingTime = $('#timer').text() * 60;
+    originalTime = startingTime = $('#timer').text() * 60;
     startTimer(startingTime, $('#timer'));
   }
+}
+
+function playChime() {
+  $('#chime')[0].play();
 }
